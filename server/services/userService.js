@@ -1,4 +1,4 @@
-import { db } from "./utils/dbConfig.js";
+import { db } from "../utils/dbConfig.js";
 
 export const createUser = async (newUser, password) => {
   try {
