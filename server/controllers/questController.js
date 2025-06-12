@@ -28,6 +28,31 @@ export const questPost = async (req, res, next) => {
 
 // POST /quests/:id/complete
 // Attempt a quest
+export const questAttemptPost = async (req, res, next) => {
+  try {
+    const questId = req.params;
+    const userId = req.user;
+
+    // get quest by id
+    // check success = false
+    // check userId is'nt the same as in the quest user_id
+
+    // update quest table success true and completed_by userid
+    // update user table with xp granted
+    // Save quest in database
+    const result = await createQuest(req.body, userId);
+
+    if (result.rows.length === 0) {
+      throw new Error("Quest not created");
+    }
+
+    res
+      .status(201)
+      .json({ success: true, message: "Quest created successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
 
 // PUT /quests/:id
 // Update a quest
