@@ -12,3 +12,11 @@ export const createQuest = async (newQuest, userId) => {
     throw error;
   }
 };
+
+export const getQuestById = async (id) => {
+  try {
+    return await db.query(`SELECT * FROM quests WHERE id = $1`, [id]);
+  } catch (error) {
+    throw error;
+  }
+};
