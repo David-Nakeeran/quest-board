@@ -1,23 +1,26 @@
+import { createQuest } from "../services/questService.js";
+
 // GET /quests
 // View all uncompleted quests
 
 // GET /quests/:id:
 // get quest by id
 
-// POST /quests:
+// POST /quests
 // Create a new quest
 export const questPost = async (req, res, next) => {
   try {
-    // Save user in database
-    const result = await createUser(req.body, hashedPassword);
+    const userId = req.user;
+    // Save quest in database
+    const result = await createQuest(req.body, userId);
 
     if (result.rows.length === 0) {
-      throw new Error("User not created");
+      throw new Error("Quest not created");
     }
 
     res
       .status(201)
-      .json({ success: true, message: "User registered successfully" });
+      .json({ success: true, message: "Quest created successfully" });
   } catch (error) {
     next(error);
   }
