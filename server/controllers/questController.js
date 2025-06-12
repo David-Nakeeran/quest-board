@@ -1,4 +1,5 @@
-import { createQuest } from "../services/questService.js";
+import { createQuest, getQuestById } from "../services/questService.js";
+import { getUserById } from "../services/userService.js";
 
 // GET /quests
 // View all uncompleted quests
@@ -30,25 +31,73 @@ export const questPost = async (req, res, next) => {
 // Attempt a quest
 export const questAttemptPost = async (req, res, next) => {
   try {
-    const questId = req.params;
+    const { id } = req.params;
     const userId = req.user;
 
     // get quest by id
-    // check success = false
-    // check userId is'nt the same as in the quest user_id
+    const result = await getQuestById(parseInt(id));
 
-    // update quest table success true and completed_by userid
-    // update user table with xp granted
-    // Save quest in database
-    const result = await createQuest(req.body, userId);
+    // get user by id
+    const userResult = await getUserById(parseInt(userId));
 
     if (result.rows.length === 0) {
-      throw new Error("Quest not created");
+      const error = new Error("Quest not found");
+      error.statusCode = 404;
+      throw error;
     }
 
-    res
-      .status(201)
-      .json({ success: true, message: "Quest created successfully" });
+    if (userResult.rows.length === 0) {
+      const error = new Error("User not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const quest = result.rows[0];
+    const user = userResult.rows[0];
+
+    if (quest.success) {
+      return res
+        .status(200)
+        .json({ success: false, message: "Quest has already been completed" });
+    }
+
+    // check userId isn't the same as in the quest user_id
+    if (userId === quest.user_id) {
+      return res.status(200).json({
+        success: false,
+        message: "Can not attempt to complete a quest created by yourself",
+      });
+    }
+
+    // dice roll
+    const diceRoll = Math.floor(Math.random() * 100) + 1;
+
+    // get difficulty from quest table
+    const difficulty = quest.difficulty;
+
+    const difficulties = {
+      easy: 80,
+      medium: 50,
+      hard: 20,
+    };
+
+    for (const [key, value] of Object.entries(difficulties)) {
+      if (key === difficulty && diceRoll <= value) {
+        // Change below into quest update function
+        quest.success = true;
+        quest.completed_by = userId;
+        // Change below into user update function
+        user.xp = quest.reward_xp;
+        return res.status(200).json({
+          success: true,
+          message: "Quest completed!",
+          user,
+          quest,
+        });
+      }
+    }
+
+    res.status(200).json({ success: false, message: "Quest attempt failed" });
   } catch (error) {
     next(error);
   }
@@ -59,5 +108,3 @@ export const questAttemptPost = async (req, res, next) => {
 
 // DELETE /quests/:id:
 // Delete a quest
-
-// The quest_completions table is only updated when a user attempts/completes a quest
