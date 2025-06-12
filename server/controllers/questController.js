@@ -8,8 +8,6 @@
 // Create a new quest
 export const questPost = async (req, res, next) => {
   try {
-    const { title, description, difficulty, reward_xp } = req.body;
-
     // Save user in database
     const result = await createUser(req.body, hashedPassword);
 
