@@ -2,11 +2,29 @@ import {
   createQuest,
   getQuestById,
   updateQuestSuccess,
+  getAvailableQuests,
 } from "../services/questService.js";
 import { getUserById, updateUserSuccess } from "../services/userService.js";
 
-// GET /quests
+// GET /quests/available
 // View all uncompleted quests
+export const questGetAvailable = async (req, res, next) => {
+  try {
+    const userId = req.user;
+    // Save quest in database
+    const result = await getAvailableQuests(false, userId);
+
+    if (result.rows.length === 0) {
+      throw new Error("No quests available");
+    }
+
+    const availableQuests = result.rows;
+
+    res.status(201).json({ success: true, quests: availableQuests });
+  } catch (error) {
+    next(error);
+  }
+};
 
 // GET /quests/:id:
 // get quest by id
