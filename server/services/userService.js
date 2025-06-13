@@ -28,3 +28,16 @@ export const getUserById = async (id) => {
     throw error;
   }
 };
+
+export const updateUserSuccess = async (questXp, userId) => {
+  try {
+    await db.query(
+      `
+      UPDATE users SET xp = $1 WHERE id = $2
+      `,
+      [questXp, userId]
+    );
+  } catch (error) {
+    throw error;
+  }
+};

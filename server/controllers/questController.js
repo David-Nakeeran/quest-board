@@ -1,5 +1,9 @@
-import { createQuest, getQuestById } from "../services/questService.js";
-import { getUserById } from "../services/userService.js";
+import {
+  createQuest,
+  getQuestById,
+  updateQuestSuccess,
+} from "../services/questService.js";
+import { getUserById, updateUserSuccess } from "../services/userService.js";
 
 // GET /quests
 // View all uncompleted quests
@@ -69,6 +73,7 @@ export const questAttemptPost = async (req, res, next) => {
       });
     }
 
+    // Refactor this all later
     // dice roll
     const diceRoll = Math.floor(Math.random() * 100) + 1;
 
@@ -83,16 +88,13 @@ export const questAttemptPost = async (req, res, next) => {
 
     for (const [key, value] of Object.entries(difficulties)) {
       if (key === difficulty && diceRoll <= value) {
-        // Change below into quest update function
-        quest.success = true;
-        quest.completed_by = userId;
-        // Change below into user update function
-        user.xp = quest.reward_xp;
+        await updateQuestSuccess(quest.id, user.id, true);
+
+        await updateUserSuccess(quest.reward_xp, user.id);
+
         return res.status(200).json({
           success: true,
           message: "Quest completed!",
-          user,
-          quest,
         });
       }
     }
