@@ -1,5 +1,9 @@
 import express from "express";
-import { loginPost, registerPost } from "../controllers/authController.js";
+import {
+  loginPost,
+  registerPost,
+  logoutPost,
+} from "../controllers/authController.js";
 import { authenticateToken } from "../auth/auth.js";
 import {
   validateCharacterName,
@@ -36,11 +40,6 @@ router.post(
 );
 
 // test protected route
-router.get("/protected", authenticateToken, (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    message: "Access granted to protected route",
-  });
-});
+router.post("/logout", authenticateToken, logoutPost);
 
 export default router;
