@@ -33,3 +33,14 @@ export const updateQuestSuccess = async (questId, userId, success) => {
     throw error;
   }
 };
+
+export const getAvailableQuests = async (condition, userId) => {
+  try {
+    return await db.query(
+      `SELECT * FROM quests WHERE success = $1 AND user_id != $2`,
+      [condition, userId]
+    );
+  } catch (error) {
+    throw error;
+  }
+};
