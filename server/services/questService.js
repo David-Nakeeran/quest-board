@@ -20,3 +20,16 @@ export const getQuestById = async (id) => {
     throw error;
   }
 };
+
+export const updateQuestSuccess = async (questId, userId, success) => {
+  try {
+    await db.query(
+      `
+      UPDATE quests SET success = $1, completed_by = $2 WHERE id = $3
+      `,
+      [success, userId, questId]
+    );
+  } catch (error) {
+    throw error;
+  }
+};
