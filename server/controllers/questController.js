@@ -3,6 +3,7 @@ import {
   getQuestById,
   updateQuestSuccess,
   getAvailableQuests,
+  deleteSingleUserQuest,
 } from "../services/questService.js";
 import { getUserById, updateUserSuccess } from "../services/userService.js";
 
@@ -126,5 +127,25 @@ export const questAttemptPost = async (req, res, next) => {
 // PUT /quests/:id
 // Update a quest
 
-// DELETE /quests/:id:
+// DELETE /quests/:id
 // Delete a quest
+export const questDelete = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user;
+
+    const result = await deleteSingleUserQuest(id, userId);
+
+    if (result.rowCount === 0) {
+      const error = new Error("No quest found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: "Quest deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
