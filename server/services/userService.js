@@ -29,6 +29,17 @@ export const getUserById = async (id) => {
   }
 };
 
+export const getUserDetails = async (id) => {
+  try {
+    return await db.query(
+      `SELECT id, character_name, xp FROM users WHERE id = $1`,
+      [id]
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const updateUserSuccess = async (questXp, userId) => {
   try {
     await db.query(
