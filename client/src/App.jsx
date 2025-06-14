@@ -5,6 +5,8 @@ import { UserDashboard } from "./pages/UserDashboard.jsx";
 import { Login } from "./pages/Login.jsx";
 import { Register } from "./pages/Register.jsx";
 import { UserLayout } from "./components/UserLayout.jsx";
+import { AvailableQuests } from "./pages/AvailableQuests.jsx";
+import { QuestDetail } from "./pages/QuestDetail.jsx";
 import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router";
@@ -32,20 +34,6 @@ export const App = () => {
   return (
     <div>
       <Header activeUser={activeUser} setActiveUser={setActiveUser} />
-      {/* <Routes>
-        <Route
-          path={"/"}
-          element={
-            activeUser ? (
-              <UserDashboard activeUser={activeUser} />
-            ) : (
-              <LandingPage />
-            )
-          }
-        />
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/register"} element={<Register />} />
-      </Routes> */}
       <Routes>
         <Route
           path="/"
@@ -67,8 +55,8 @@ export const App = () => {
             path={"/dashboard"}
             element={<UserDashboard activeUser={activeUser} />}
           />
-          <Route />
-          <Route />
+          <Route path={"/quests"} element={<AvailableQuests />} />
+          <Route path={`/quests/:id`} element={<QuestDetail />} />
         </Route>
       </Routes>
       <Footer />
