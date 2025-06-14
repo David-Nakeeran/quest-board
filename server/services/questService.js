@@ -45,6 +45,14 @@ export const getAvailableQuests = async (condition, userId) => {
   }
 };
 
+export const getAllUserQuests = async (userId) => {
+  try {
+    return await db.query(`SELECT * FROM quests WHERE user_id = $1`, [userId]);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deleteSingleUserQuest = async (questId, userId) => {
   try {
     return await db.query(`DELETE FROM quests WHERE id = $1 AND user_id = $2`, [
