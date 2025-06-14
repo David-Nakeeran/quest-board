@@ -20,3 +20,23 @@ export const userGetDetails = async (req, res, next) => {
     next(error);
   }
 };
+
+export const userGetQuests = async (req, res, next) => {
+  try {
+    const userId = req.user;
+
+    const result = await getAllUserQuests(userId);
+
+    if (result.rows.length === 0) {
+      const error = new Error("User does not exist");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const quests = result.rows;
+
+    res.status(200).json({ success: true, quests });
+  } catch (error) {
+    next(error);
+  }
+};
