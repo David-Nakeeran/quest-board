@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-export const Login = () => {
+export const Login = ({ setActiveUser }) => {
   const [formData, setFormData] = useState({
     password: "",
     email: "",
@@ -23,7 +23,9 @@ export const Login = () => {
       const data = await response.json();
 
       if (data.success) {
-        navigate("/");
+        console.log(data);
+        setActiveUser(data.user);
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error(error.message);
