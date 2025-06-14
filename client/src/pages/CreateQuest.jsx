@@ -3,28 +3,26 @@ import { useNavigate } from "react-router";
 
 export const CreateQuest = () => {
   const [formData, setFormData] = useState({
-    password: "",
-    email: "",
-    character_name: "",
+    title: "",
+    description: "",
+    difficulty: "",
+    reward_xp: 1,
   });
 
   const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/register`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/quests`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      });
       const data = await response.json();
       console.log(data);
       if (data.success) {
-        navigate("/login");
+        // navigate("/login");
       }
     } catch (error) {
       console.error(error.message);
@@ -44,32 +42,48 @@ export const CreateQuest = () => {
     <>
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Login</legend>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleFormData}
-            placeholder="enter email"
-            required
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleFormData}
-            placeholder="Enter your password"
-            required
-          />
-          <label htmlFor="character_name">Character Name:</label>
+          <legend>Create a quest!</legend>
+          <label htmlFor="title">Title:</label>
           <input
             type="text"
-            name="character_name"
-            value={formData.character_name}
+            name="title"
+            value={formData.title}
             onChange={handleFormData}
-            placeholder="Enter your character name"
+            placeholder="Enter Quest title"
+            required
+          />
+          <label htmlFor="description">Description:</label>
+          <input
+            type="description"
+            name="description"
+            value={formData.description}
+            onChange={handleFormData}
+            placeholder="Enter Quest Description"
+            required
+          />
+          <label htmlFor="difficulty">Character Name:</label>
+          <select
+            name="difficulty"
+            value={formData.difficulty}
+            onChange={handleFormData}
+            required
+          >
+            <option value="">Select Difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+          <label htmlFor="reward_xp">
+            Enter xp reward ranging from 1 to 100:
+          </label>
+          <input
+            type="number"
+            name="reward_xp"
+            value={formData.reward_xp}
+            onChange={handleFormData}
+            placeholder="Enter Reward XP"
+            min={1}
+            max={100}
             required
           />
           <button type="submit">Submit</button>

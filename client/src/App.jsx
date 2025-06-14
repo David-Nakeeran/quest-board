@@ -7,6 +7,7 @@ import { Register } from "./pages/Register.jsx";
 import { UserLayout } from "./components/UserLayout.jsx";
 import { AvailableQuests } from "./pages/AvailableQuests.jsx";
 import { QuestDetail } from "./pages/QuestDetail.jsx";
+import { CreateQuest } from "./pages/CreateQuest.jsx";
 import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router";
@@ -57,6 +58,7 @@ export const App = () => {
           />
           <Route path={"/quests"} element={<AvailableQuests />} />
           <Route path={`/quests/:id`} element={<QuestDetail />} />
+          <Route path={"/create-quest"} element={<CreateQuest />} />
         </Route>
       </Routes>
       <Footer />
