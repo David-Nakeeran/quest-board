@@ -4,12 +4,12 @@ import { LandingPage } from "./pages/LandingPage.jsx";
 import { UserDashboard } from "./pages/UserDashboard.jsx";
 import { Login } from "./pages/Login.jsx";
 import { Register } from "./pages/Register.jsx";
+import { UserLayout } from "./components/UserLayout.jsx";
 import "./App.css";
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 
 export const App = () => {
-  // Need another state to track when a user logs in for component re-render
   const [activeUser, setActiveUser] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const App = () => {
         });
         const data = await response.json();
         if (data.success) {
-          setActiveUser(data);
+          setActiveUser(data.user);
         }
       } catch (error) {
         console.error(error.message);
@@ -32,7 +32,7 @@ export const App = () => {
   return (
     <div>
       <Header activeUser={activeUser} setActiveUser={setActiveUser} />
-      <Routes>
+      {/* <Routes>
         <Route
           path={"/"}
           element={
@@ -45,6 +45,31 @@ export const App = () => {
         />
         <Route path={"/login"} element={<Login />} />
         <Route path={"/register"} element={<Register />} />
+      </Routes> */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            activeUser ? (
+              <Navigate to={"/dashboard"} replace />
+            ) : (
+              <LandingPage />
+            )
+          }
+        />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={<Login setActiveUser={setActiveUser} />}
+        />
+        <Route element={<UserLayout activeUser={activeUser} />}>
+          <Route
+            path={"/dashboard"}
+            element={<UserDashboard activeUser={activeUser} />}
+          />
+          <Route />
+          <Route />
+        </Route>
       </Routes>
       <Footer />
     </div>

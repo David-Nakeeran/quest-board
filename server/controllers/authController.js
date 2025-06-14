@@ -58,6 +58,11 @@ export const loginPost = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       message: "Logged in successfully",
+      user: {
+        id: user.id,
+        character_name: user.character_name,
+        xp: user.xp,
+      },
     });
   } catch (error) {
     next(error);
