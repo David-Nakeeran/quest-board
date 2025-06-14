@@ -14,7 +14,7 @@ export const UserLayout = ({ activeUser }) => {
     <>
       <nav>
         <NavLink to={"/dashboard"}>DashBoard</NavLink>
-        <NavLink>Test 2</NavLink>
+        <NavLink to={"/quests"}>Available Quests</NavLink>
       </nav>
       <main>
         <Outlet />

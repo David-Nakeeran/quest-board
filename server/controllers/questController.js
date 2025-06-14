@@ -29,6 +29,26 @@ export const questGetAvailable = async (req, res, next) => {
 
 // GET /quests/:id:
 // get quest by id
+export const questGetById = async (req, res, next) => {
+  try {
+    const questId = parseInt(req.params.id);
+    const userId = req.user;
+
+    const result = await getQuestById(questId);
+
+    if (result.rows.length === 0) {
+      const error = new Error("Quest not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const quest = result.rows[0];
+
+    res.status(201).json({ success: true, quest });
+  } catch (error) {
+    next(error);
+  }
+};
 
 // POST /quests
 // Create a new quest
