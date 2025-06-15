@@ -43,10 +43,14 @@ export const CreateQuest = ({ logout }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Create a quest!</legend>
-          <label htmlFor="title">Title:</label>
+      <form onSubmit={handleSubmit} className="w-xs">
+        <fieldset className="flex flex-col border border-[#b388ff] rounded-lg p-3 mb-2">
+          <legend className="text-[#FFF2C5] text-xl font-bold p-2">
+            Create a quest!
+          </legend>
+          <label htmlFor="title" className="text-[#a9a9b3] mb-1">
+            Title:
+          </label>
           <input
             type="text"
             name="title"
@@ -54,8 +58,11 @@ export const CreateQuest = ({ logout }) => {
             onChange={handleFormData}
             placeholder="Enter Quest title"
             required
+            className="bg-[#2a2a3c] text-[#ededed] border border-[#b388ff] rounded-lg p-2"
           />
-          <label htmlFor="description">Description:</label>
+          <label htmlFor="description" className="text-[#a9a9b3] mt-4 mb-1">
+            Description:
+          </label>
           <input
             type="description"
             name="description"
@@ -63,20 +70,24 @@ export const CreateQuest = ({ logout }) => {
             onChange={handleFormData}
             placeholder="Enter Quest Description"
             required
+            className="bg-[#2a2a3c] text-[#ededed] border border-[#b388ff] rounded-lg p-3"
           />
-          <label htmlFor="difficulty">Character Name:</label>
+          <label htmlFor="difficulty" className="text-[#a9a9b3] mt-4 mb-1">
+            Character Name:
+          </label>
           <select
             name="difficulty"
             value={formData.difficulty}
             onChange={handleFormData}
             required
+            className="w-full p-2 rounded-md bg-[#2a2a3c] text-[#ededed] border border-[#b388ff]"
           >
             <option value="">Select Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </select>
-          <label htmlFor="reward_xp">
+          <label htmlFor="reward_xp" className="text-[#a9a9b3] mt-4 mb-1">
             Enter xp reward ranging from 1 to 100:
           </label>
           <input
@@ -88,8 +99,14 @@ export const CreateQuest = ({ logout }) => {
             min={1}
             max={100}
             required
+            className="bg-[#2a2a3c] text-[#ededed] border border-[#b388ff] rounded-lg p-3"
           />
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="mt-6 bg-[#a774fd] hover:bg-[#9368f9] text-white font-medium p-3 rounded-lg transition-colors"
+          >
+            Submit
+          </button>
         </fieldset>
       </form>
     </>

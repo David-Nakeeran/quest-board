@@ -54,21 +54,47 @@ export const QuestDetail = ({ logout }) => {
   };
 
   return (
-    <>
-      <div>
-        <h3>{questDetail.title}</h3>
-        <p>{questDetail.description}</p>
-        <p>Difficulty: {questDetail.difficulty}</p>
-        <p>Reward: {questDetail.reward_xp}xp</p>
-        <button onClick={handleAttemptQuest} disabled={questComplete.success}>
-          Attempt Quest
-        </button>
-        {questComplete.success ? (
-          <p>{questComplete.message}</p>
-        ) : (
-          <p>{questComplete.message}</p>
-        )}
-      </div>
-    </>
+    <div className="mt-8 bg-[#2a2a3c] p-6 rounded-xl shadow-md border border-[#b388ff]">
+      <h3 className="text-2xl text-[#ededed] font-bold mb-4">
+        {questDetail.title}
+      </h3>
+      <p className="text-[#a9a9b3] mb-2">{questDetail.description}</p>
+      <p className="text-[#ededed] mb-1">
+        <span className="font-semibold text-[#E0C074]">Difficulty: </span>
+        {questDetail.difficulty}
+      </p>
+      <p className="text-[#ededed] mb-4">
+        <span className="font-semibold text-[#E0C074]">Reward: </span>
+        {questDetail.reward_xp} XP
+      </p>
+      <button
+        onClick={handleAttemptQuest}
+        disabled={questComplete.success}
+        className={`w-100% p4 rounded-md font-semibold transition ${
+          questComplete.success
+            ? "bg-gray-500 cursor-not-allowed"
+            : "bg-[#b388ff] hover:bg-[#9f6fff] text-[#1e1e2f]"
+        }`}
+      >
+        Attempt Quest
+      </button>
+      {questComplete.success ? (
+        <p
+          className={`mt-4 text-center font-medium ${
+            questComplete.success ? "text-green-400" : "text-red-400"
+          }`}
+        >
+          {questComplete.message}
+        </p>
+      ) : (
+        <p
+          className={`mt-4 text-center font-medium ${
+            questComplete.success ? "text-green-400" : "text-red-400"
+          }`}
+        >
+          {questComplete.message}
+        </p>
+      )}
+    </div>
   );
 };
