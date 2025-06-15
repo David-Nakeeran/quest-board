@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
-export const QuestDetail = () => {
+export const QuestDetail = ({ logout }) => {
   const [questDetail, setQuestDetail] = useState({});
   const [questComplete, setQuestComplete] = useState({});
   const { id } = useParams();
@@ -15,6 +15,10 @@ export const QuestDetail = () => {
             credentials: "include",
           }
         );
+        if (response.status === 401) {
+          logout();
+          return;
+        }
         const data = await response.json();
         console.log(data);
         if (data.success) {

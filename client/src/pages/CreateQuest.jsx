@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
 
-export const CreateQuest = () => {
+export const CreateQuest = ({ logout }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     difficulty: "",
     reward_xp: 1,
   });
-
-  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -19,11 +16,11 @@ export const CreateQuest = () => {
         credentials: "include",
         body: JSON.stringify(formData),
       });
-      const data = await response.json();
-      console.log(data);
-      if (data.success) {
-        // navigate("/login");
+      if (response.status === 401) {
+        logout();
+        return;
       }
+      await response.json();
     } catch (error) {
       console.error(error.message);
     }
@@ -32,6 +29,12 @@ export const CreateQuest = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData();
+    setFormData({
+      title: "",
+      description: "",
+      difficulty: "",
+      reward_xp: 1,
+    });
   };
 
   const handleFormData = (e) => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { QuestCard } from "../components/QuestCard";
 
-export const AvailableQuests = () => {
+export const AvailableQuests = ({ logout }) => {
   const [quests, setQuests] = useState([]);
 
   useEffect(() => {
@@ -13,6 +13,10 @@ export const AvailableQuests = () => {
             credentials: "include",
           }
         );
+        if (response.status === 401) {
+          logout();
+          return;
+        }
         const data = await response.json();
         if (data.success) {
           setQuests(data.quests);
@@ -22,6 +26,9 @@ export const AvailableQuests = () => {
       }
     };
     fetchQuests();
+    const intervalId = setInterval(fetchQuests, 60000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const questElements = quests.map((quest) => {
@@ -31,7 +38,11 @@ export const AvailableQuests = () => {
   return (
     <section>
       <h2>Available Quests</h2>
-      {questElements}
+      {quests.length === 0 ? (
+        <p>No quests available currently</p>
+      ) : (
+        questElements
+      )}
     </section>
   );
 };
