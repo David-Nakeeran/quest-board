@@ -42,7 +42,7 @@ export const Login = ({ setActiveUser }) => {
   };
 
   return (
-    <main className="main">
+    <section>
       <form onSubmit={handleSubmit} className="w-xs">
         <fieldset className="flex flex-col border border-[#b388ff] rounded-lg p-6">
           <legend className="text-[#FFF2C5] text-xl font-bold mb-4 px-2">
@@ -80,6 +80,6 @@ export const Login = ({ setActiveUser }) => {
           </button>
         </fieldset>
       </form>
-    </main>
+    </section>
   );
 };

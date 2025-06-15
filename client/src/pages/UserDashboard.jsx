@@ -1,7 +1,7 @@
 export const UserDashboard = ({ activeUser }) => {
   console.log(activeUser);
   return (
-    <main className="flex flex-col bg-[#2a2a3c] p-5 rounded-xl shadow-lg max-w-md">
+    <div className="flex flex-col bg-[#2a2a3c] p-5 rounded-xl shadow-lg max-w-md">
       {activeUser ? (
         <>
           <p className="text-[#E0C074] text-xl mb-5 text-center font-semibold drop-shadow-md border-b border-[#E0C074] pb-1">
@@ -17,6 +17,6 @@ export const UserDashboard = ({ activeUser }) => {
           </p>
         </>
       ) : null}
-    </main>
+    </div>
   );
 };

@@ -54,7 +54,7 @@ export const UserLayout = ({ activeUser }) => {
           Available Quests
         </NavLink>
       </nav>
-      <main className="test">
+      <main>
         <Outlet />
       </main>
     </>
