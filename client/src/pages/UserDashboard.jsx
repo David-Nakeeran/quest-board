@@ -4,8 +4,8 @@ export const UserDashboard = ({ activeUser }) => {
     <main>
       {activeUser ? (
         <>
-          <p>{activeUser.character_name}</p>
-          <p>{activeUser.xp}</p>
+          <p>Character name: {activeUser.character_name}</p>
+          <p>Current XP: {activeUser.xp}xp</p>
         </>
       ) : null}
     </main>

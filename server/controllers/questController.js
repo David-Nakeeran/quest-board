@@ -12,12 +12,8 @@ import { getUserById, updateUserSuccess } from "../services/userService.js";
 export const questGetAvailable = async (req, res, next) => {
   try {
     const userId = req.user;
-    // Save quest in database
-    const result = await getAvailableQuests(false, userId);
 
-    if (result.rows.length === 0) {
-      throw new Error("No quests available");
-    }
+    const result = await getAvailableQuests(false, userId);
 
     const availableQuests = result.rows;
 
@@ -55,7 +51,7 @@ export const questGetById = async (req, res, next) => {
 export const questPost = async (req, res, next) => {
   try {
     const userId = req.user;
-    // Save quest in database
+
     const result = await createQuest(req.body, userId);
 
     if (result.rows.length === 0) {
@@ -143,9 +139,6 @@ export const questAttemptPost = async (req, res, next) => {
     next(error);
   }
 };
-
-// PUT /quests/:id
-// Update a quest
 
 // DELETE /quests/:id
 // Delete a quest

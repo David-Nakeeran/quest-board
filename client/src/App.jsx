@@ -8,12 +8,20 @@ import { UserLayout } from "./components/UserLayout.jsx";
 import { AvailableQuests } from "./pages/AvailableQuests.jsx";
 import { QuestDetail } from "./pages/QuestDetail.jsx";
 import { CreateQuest } from "./pages/CreateQuest.jsx";
+import { UserQuests } from "./pages/UserQuests.jsx";
 import "./App.css";
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, useNavigate, Navigate } from "react-router";
 
 export const App = () => {
   const [activeUser, setActiveUser] = useState(null);
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    setActiveUser(null);
+    navigate("/login");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +29,12 @@ export const App = () => {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
           credentials: "include",
         });
+
+        if (response.status === 401) {
+          logout();
+          return;
+        }
+
         const data = await response.json();
         if (data.success) {
           setActiveUser(data.user);
@@ -56,9 +70,22 @@ export const App = () => {
             path={"/dashboard"}
             element={<UserDashboard activeUser={activeUser} />}
           />
-          <Route path={"/quests"} element={<AvailableQuests />} />
-          <Route path={`/quests/:id`} element={<QuestDetail />} />
-          <Route path={"/create-quest"} element={<CreateQuest />} />
+          <Route
+            path={"/quests"}
+            element={<AvailableQuests logout={logout} />}
+          />
+          <Route
+            path={`/quests/:id`}
+            element={<QuestDetail logout={logout} />}
+          />
+          <Route
+            path={"/quests/new"}
+            element={<CreateQuest logout={logout} />}
+          />
+          <Route
+            path={"/user/quests"}
+            element={<UserQuests logout={logout} />}
+          />
         </Route>
       </Routes>
       <Footer />
