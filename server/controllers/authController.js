@@ -48,10 +48,11 @@ export const loginPost = async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      // secure: true // Set to true for HTTPS connections only
-      // sameSite: "None",
-      sameSite: "Lax",
-      secure: false,
+      // Set to true for HTTPS connections only
+      secure: true,
+      sameSite: "None",
+      // sameSite: "Lax",
+      // secure: false,
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
 
@@ -81,10 +82,11 @@ export const logoutPost = async (req, res, next) => {
 
     res.clearCookie("token", {
       httpOnly: true,
-      // secure: true // Set to true for HTTPS connections only
-      // sameSite: "None",
-      sameSite: "Lax",
-      secure: false,
+      // Set to true for HTTPS connections only
+      secure: true,
+      sameSite: "None",
+      // sameSite: "Lax",
+      // secure: false,
     });
 
     return res.status(200).json({
