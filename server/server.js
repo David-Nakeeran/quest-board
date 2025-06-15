@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://quest-board-client.onrender.com",
     credentials: true,
   })
 );
