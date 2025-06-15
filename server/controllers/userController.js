@@ -1,4 +1,5 @@
 import { getUserDetails } from "../services/userService.js";
+import { getAllUserQuests } from "../services/questService.js";
 // GET /users
 // user details
 export const userGetDetails = async (req, res, next) => {
@@ -26,12 +27,6 @@ export const userGetQuests = async (req, res, next) => {
     const userId = req.user;
 
     const result = await getAllUserQuests(userId);
-
-    if (result.rows.length === 0) {
-      const error = new Error("User does not exist");
-      error.statusCode = 404;
-      throw error;
-    }
 
     const quests = result.rows;
 
