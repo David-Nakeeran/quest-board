@@ -36,12 +36,16 @@ export const AvailableQuests = ({ logout }) => {
   });
 
   return (
-    <section>
-      <h2>Available Quests</h2>
+    <section className="p-4">
+      <h2 className="text-[#ededed] text-2xl font-bold mb-4">
+        Available Quests
+      </h2>
       {quests.length === 0 ? (
-        <p>No quests available currently</p>
+        <p className="text-[#a9a9b3]">No quests available currently</p>
       ) : (
-        questElements
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {questElements}
+        </div>
       )}
     </section>
   );

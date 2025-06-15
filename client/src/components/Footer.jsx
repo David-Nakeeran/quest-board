@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
-    <footer>
-      <p>Quest Board copyright©</p>
+    <footer className="footer">
+      <p className="text-[#a9a9b3] pb-2">Quest Board copyright©</p>
     </footer>
   );
 };

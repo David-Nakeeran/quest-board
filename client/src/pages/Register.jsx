@@ -42,20 +42,28 @@ export const Register = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Login</legend>
-          <label htmlFor="email">Email:</label>
+      <form onSubmit={handleSubmit} className="w-xs">
+        <fieldset className="flex flex-col border border-[#b388ff] rounded-lg p-6 mb-4">
+          <legend className="text-[#FFF2C5] text-xl font-bold mb-4 px-2">
+            Register
+          </legend>
+          <label htmlFor="email" className="text-[#a9a9b3] mt-4 mb-1">
+            Email:
+          </label>
           <input
+            className="bg-[#2a2a3c] text-[#ededed] border border-[#b388ff] rounded-lg p-3"
             type="email"
             name="email"
             value={formData.email}
             onChange={handleFormData}
-            placeholder="enter email"
+            placeholder="Enter your email"
             required
           />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password" className="text-[#a9a9b3] mt-4 mb-1">
+            Password:
+          </label>
           <input
+            className="bg-[#2a2a3c] text-[#ededed] border border-[#b388ff] rounded-lg p-3"
             type="password"
             name="password"
             value={formData.password}
@@ -63,8 +71,11 @@ export const Register = () => {
             placeholder="Enter your password"
             required
           />
-          <label htmlFor="character_name">Character Name:</label>
+          <label htmlFor="character_name" className="text-[#a9a9b3] mt-4 mb-1">
+            Character Name:
+          </label>
           <input
+            className="bg-[#2a2a3c] text-[#ededed] border border-[#b388ff] rounded-lg p-3"
             type="text"
             name="character_name"
             value={formData.character_name}
@@ -72,7 +83,12 @@ export const Register = () => {
             placeholder="Enter your character name"
             required
           />
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="mt-6 bg-[#a774fd] hover:bg-[#9368f9] text-white font-medium p-3 rounded-lg transition-colors"
+          >
+            Submit
+          </button>
         </fieldset>
       </form>
     </>

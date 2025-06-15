@@ -47,7 +47,7 @@ export const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="layout bg-[#1e1e2f]">
       <Header activeUser={activeUser} setActiveUser={setActiveUser} />
       <Routes>
         <Route
