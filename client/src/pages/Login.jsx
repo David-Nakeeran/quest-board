@@ -28,7 +28,7 @@ export const Login = ({ setActiveUser }) => {
         navigate("/dashboard");
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.errors);
     }
   };
 
