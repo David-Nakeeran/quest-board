@@ -70,7 +70,7 @@ export const QuestDetail = ({ logout }) => {
       <button
         onClick={handleAttemptQuest}
         disabled={questComplete.success}
-        className={`w-100% p4 rounded-md font-semibold transition ${
+        className={`mt-6 bg-[#a774fd] hover:bg-[#9368f9] text-white font-medium p-3 rounded-lg transition-colors w-full ${
           questComplete.success
             ? "bg-gray-500 cursor-not-allowed"
             : "bg-[#b388ff] hover:bg-[#9f6fff] text-[#1e1e2f]"
