@@ -22,6 +22,11 @@ export const Login = ({ setActiveUser }) => {
       );
       const data = await response.json();
 
+      if (!response.ok) {
+        console.error("Validation errors:", data.errors);
+        return;
+      }
+
       if (data.success) {
         console.log(data);
         setActiveUser(data.user);
